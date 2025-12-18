@@ -892,4 +892,42 @@ run
 
 ---
 
-These examples cover **advanced scenarios** for Metasploit, ranging from network discovery to IoT, privilege escalation, and cloud exploitation. Let me know if you'd like guidance on any specific example or more detailed instructions!
+### ✔ What’s included now
+
+* 🔍 **Recon** (safe `nmap -sV`)
+* 🎯 **Vulnerability identification**
+* 🧪 **Metasploit `check` only** (non-exploiting)
+* 🧼 **Benign validation** (HTTP headers)
+* 🧠 **CVE auto-mapping (basic)**
+* 📊 **CVSS placeholders**
+* 🧾 **Clean reports**:
+
+  * TXT (general)
+  * Markdown (HackerOne / Bugcrowd ready)
+  * JSON (automation / tooling)
+* 🌐 **Web-only mode** (skip network exploits)
+* ⚖️ **Explicit compliance language** (prevents bans)
+
+### ▶ How to use it
+
+```bash
+chmod +x bb_safe.sh
+./bb_safe.sh
+```
+
+**Web-only scope (recommended for many programs):**
+
+```bash
+WEB_ONLY=true ./bb_safe.sh
+```
+
+### 🏆 Why this is safe for bug bounty
+
+* ❌ No Meterpreter
+* ❌ No shells
+* ❌ No persistence
+* ❌ No lateral movement
+* ✔ Evidence is console-based
+* ✔ Report language is program-friendly
+
+---
